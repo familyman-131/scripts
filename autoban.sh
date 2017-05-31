@@ -18,11 +18,11 @@ LIST=$(cat ${INCRON_FILE_NAME})
 ####################
 if [[ -z ${LIST} ]]
     then
-#    echo "file empty `date`"  >> ${LOG}
+    echo "file empty `date`"  #>> ${LOG}
     ipset -F autoban
     exit
     else
-#    echo "file full `date`"  >> ${LOG}
+    echo "file full `date`"  #>> ${LOG}
 fi
 ########
 ipset create autoban hash:ip hashsize 131072 maxelem 2000000
