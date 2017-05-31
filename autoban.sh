@@ -16,18 +16,21 @@ LIST=$(cat ${INCRON_FILE_NAME})
 #echo "${INCRON_FILE_NAME}" >> ${LOG}
 #echo "${LIST}" >> ${LOG}
 ####################
-if [-e ${INCRON_FILE_NAME}]
+if [[ -z ${LIST} ]]
     then
-    echo "file exist"
-    else
+#    echo "file empty `date`"  >> ${LOG}
     ipset -F autoban
+    exit
+    else
+#    echo "file full `date`"  >> ${LOG}
 fi
 ########
 ipset create autoban hash:ip hashsize 131072 maxelem 2000000
 for ipaddr in ${LIST}
 do
   ipset -A autoban $ipaddr
+#  echo "$ipaddr" >> ${LOG}
 done
 
-rm ${INCRON_FILE_NAME}
+#rm ${INCRON_FILE_NAME}
 ###################
